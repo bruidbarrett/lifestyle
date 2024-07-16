@@ -66,21 +66,21 @@ export const MainContainer = () => {
 
             if (rn === homeName) {
               return focused ? (
-                <HomeFilled height={38} />
+                <HomeFilled height={35} />
               ) : (
-                <HomeOutline height={38} />
+                <HomeOutline height={35} />
               );
             } else if (rn === insightsName) {
               return focused ? (
-                <InsightsFilled height={44} />
+                <InsightsFilled height={33} />
               ) : (
                 <InsightsOutline height={33} />
               );
             } else if (rn === settingsName) {
               return focused ? (
-                <SettingsFilled height={38} />
+                <SettingsFilled height={35} />
               ) : (
-                <SettingsOutline height={38} />
+                <SettingsOutline height={35} />
               );
             }
           },

@@ -30,9 +30,7 @@
       }
     },
     "owner": "bruidbarrett",
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    },
+    "runtimeVersion": "1.0.0",
     "updates": {
       "url": "https://u.expo.dev/ea8bbd00-0888-43bb-97ef-2d4b69646a30"
     }
