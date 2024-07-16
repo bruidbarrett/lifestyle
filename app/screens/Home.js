@@ -85,7 +85,7 @@ export const Home = ({ navigation }) => {
               fontFamily: "HelveticaNeue",
               fontWeight: "bold",
               color: colors.offwhite,
-              fontSize: 16,
+              fontSize: 22,
             }}
           >
             {dateInfo.dayOfWeek}
@@ -95,7 +95,7 @@ export const Home = ({ navigation }) => {
               fontFamily: "HelveticaNeue",
               fontWeight: "bold",
               color: colors.offwhite,
-              fontSize: 20,
+              fontSize: 14,
             }}
           >
             {dateInfo.dateStr}
