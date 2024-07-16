@@ -12,7 +12,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bruidbarrett.lifestyle"
     },
     "android": {
       "adaptiveIcon": {
@@ -22,6 +23,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ea8bbd00-0888-43bb-97ef-2d4b69646a30"
+      }
+    },
+    "owner": "bruidbarrett",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ea8bbd00-0888-43bb-97ef-2d4b69646a30"
     }
   }
 }

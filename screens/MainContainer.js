@@ -18,21 +18,23 @@ import { FontAwesome5 } from "@expo/vector-icons/";
 import { useState, useEffect } from "react";
 import * as Font from "expo-font";
 import * as LocalAuthentication from "expo-local-authentication";
+import HomeFilled from "../assets/svgs/home_filled.svg";
+import HomeOutline from "../assets/svgs/home_outline.svg";
+import InsightsOutline from "../assets/svgs/insights_outline.svg";
+import InsightsFilled from "../assets/svgs/insights_filled.svg";
+import SettingsOutline from "../assets/svgs/settings_outline.svg";
+import SettingsFilled from "../assets/svgs/settings_filled.svg";
 
 // Screens
 import HomeDashboard from "./HomeDashboard";
-import { Tab1 } from "./Tab1";
-import { Tab2 } from "./Tab2";
-import { Tab3 } from "./Tab3";
-import { Tab4 } from "./Tab4";
+import Settings, { Tab1 } from "./Settings";
+import Insights, { Tab2 } from "./Insights";
 import colors from "../config/colors";
 
 //Screen names
 const homeName = "Home";
-const tab1Name = "Tab1";
-const tab2Name = "Tab2";
-const tab3Name = "Tab3";
-const tab4Name = "Tab4";
+const insightsName = "Insights";
+const settingsName = "Settings";
 
 const Tab = createBottomTabNavigator();
 
@@ -55,6 +57,7 @@ export const MainContainer = () => {
 
   return (
     <NavigationContainer>
+      <StatusBar barStyle="light-content" />
       <Tab.Navigator
         initialRouteName={homeName}
         screenOptions={({ route }) => ({
@@ -62,61 +65,41 @@ export const MainContainer = () => {
             let rn = route.name;
 
             if (rn === homeName) {
-              return (
-                <Ionicons name={"fitness"} size={31} color={colors.offwhite} />
-              );
-            } else if (rn === tab1Name) {
-              return (
-                <FontAwesome5
-                  name={"chart-bar"}
-                  size={28}
-                  color={colors.offwhite}
-                />
-              );
-            } else if (rn === tab2Name) {
-              return (
-                <MaterialCommunityIcons
-                  name={"pill"}
-                  size={29}
-                  color={colors.offwhite}
-                />
-              );
-            } else if (rn === tab3Name) {
-              return (
-                <FontAwesome5
-                  name={"brain"}
-                  size={25}
-                  color={colors.offwhite}
-                  light
-                />
-              );
-            } else if (rn === tab4Name) {
               return focused ? (
-                <FontAwesome5
-                  name={"moon"}
-                  size={26}
-                  color={colors.offwhite}
-                  solid
-                />
+                <HomeFilled height={38} />
               ) : (
-                <FontAwesome5 name={"moon"} size={26} color={colors.offwhite} />
+                <HomeOutline height={38} />
+              );
+            } else if (rn === insightsName) {
+              return focused ? (
+                <InsightsFilled height={44} />
+              ) : (
+                <InsightsOutline height={33} />
+              );
+            } else if (rn === settingsName) {
+              return focused ? (
+                <SettingsFilled height={38} />
+              ) : (
+                <SettingsOutline height={38} />
               );
             }
           },
           tabBarShowLabel: false,
           tabBarStyle: {
-            backgroundColor: colors.secondaryBlue,
-            borderTopWidth: 0,
+            backgroundColor: colors.background,
+            borderTopWidth: "2px",
+            height: 84,
+            borderTopColor: "#4A4641",
+            elevation: 0,
+            paddingHorizontal: 10,
           },
-          tabBarIconStyle: { marginTop: 10 },
+          tabBarIconStyle: { marginTop: 15 },
           headerShown: false,
         })}
       >
-        <Tab.Screen name={tab1Name} component={Tab1} />
-        <Tab.Screen name={tab2Name} component={Tab2} />
+        <Tab.Screen name={insightsName} component={Insights} />
         <Tab.Screen name={homeName} component={HomeDashboard} />
-        <Tab.Screen name={tab3Name} component={Tab3} />
-        <Tab.Screen name={tab4Name} component={Tab4} />
+        <Tab.Screen name={settingsName} component={Settings} />
       </Tab.Navigator>
     </NavigationContainer>
   );
