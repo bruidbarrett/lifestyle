@@ -42,7 +42,7 @@ export const MainContainer = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   useEffect(() => {
-    // async function authenticate () {
+    // async function authenticate() {
     //   const { success } = await LocalAuthentication.authenticateAsync();
     // }
     // authenticate();
@@ -66,21 +66,21 @@ export const MainContainer = () => {
 
             if (rn === homeName) {
               return focused ? (
-                <HomeFilled height={35} />
+                <HomeFilled height={30} />
               ) : (
-                <HomeOutline height={35} />
+                <HomeOutline height={30} />
               );
             } else if (rn === insightsName) {
               return focused ? (
-                <InsightsFilled height={33} />
+                <InsightsFilled height={28} />
               ) : (
-                <InsightsOutline height={33} />
+                <InsightsOutline height={28} />
               );
             } else if (rn === settingsName) {
               return focused ? (
-                <SettingsFilled height={35} />
+                <SettingsFilled height={30} />
               ) : (
-                <SettingsOutline height={35} />
+                <SettingsOutline height={30} />
               );
             }
           },
@@ -88,10 +88,10 @@ export const MainContainer = () => {
           tabBarStyle: {
             backgroundColor: colors.background,
             borderTopWidth: "2px",
-            height: 84,
+            height: 80,
             borderTopColor: colors.lineGray,
             elevation: 0,
-            paddingHorizontal: 10,
+            paddingHorizontal: 15,
           },
           tabBarIconStyle: { marginTop: 15 },
           headerShown: false,
