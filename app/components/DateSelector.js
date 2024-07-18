@@ -11,6 +11,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { subDays, addDays, isToday, format } from "date-fns";
 import colors from "../config/colors";
 import { useStore } from "../config/store";
+import GamingText from "./GamingText";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -25,23 +26,37 @@ const DateSelector = ({}) => {
   }, [selectedDate]);
 
   const handleSwipe = (direction) => {
-    if (isAnimating) return;
+    if (isAnimating) {
+      console.log("Animation in progress, swipe ignored.");
+      return;
+    }
+    console.log("Starting swipe animation.");
     setIsAnimating(true);
 
     const currentDate = latestSelectedDate.current;
-    const nextDate =
-      direction === "left" ? addDays(currentDate, 1) : subDays(currentDate, 1);
-
-    console.log("NEXT DATE BEFORE", currentDate.toString());
-    console.log("NEXT DATE AFTER", nextDate.toString());
+    let nextDate = currentDate;
+    if (direction === "left") {
+      nextDate = addDays(currentDate, 1);
+      if (isToday(currentDate)) {
+        console.log("Already on today's date, cannot move to future date.");
+        setIsAnimating(false);
+        return; // Early return to prevent setting future date
+      }
+    } else {
+      nextDate = subDays(currentDate, 1);
+    }
 
     Animated.timing(position, {
       toValue: direction === "left" ? -SCREEN_WIDTH : SCREEN_WIDTH,
       duration: 300,
       useNativeDriver: true,
-    }).start(() => {
-      position.setValue(0);
-      setSelectedDate(nextDate);
+    }).start(({ finished }) => {
+      console.log(finished ? "Animation completed." : "Animation interrupted.");
+      if (finished) {
+        setSelectedDate(nextDate);
+        position.setValue(0);
+      }
+      setIsAnimating(false);
     });
   };
 
@@ -54,8 +69,15 @@ const DateSelector = ({}) => {
 
   const panResponder = useRef(
     PanResponder.create({
-      onMoveShouldSetPanResponder: (_, { dx, dy }) =>
-        Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10,
+      onMoveShouldSetPanResponder: (_, { dx, dy }) => {
+        const isHorizontalSwipe =
+          Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10;
+        if (isToday(latestSelectedDate.current) && dx < 0) {
+          // Prevent swiping to the right if the selected date is today
+          return false;
+        }
+        return isHorizontalSwipe;
+      },
       onPanResponderMove: Animated.event([null, { dx: position }], {
         useNativeDriver: false,
       }),
@@ -75,27 +97,27 @@ const DateSelector = ({}) => {
 
   const renderDate = (date, style) => (
     <View style={style}>
-      <Text
+      <GamingText
         style={{
-          fontFamily: "HelveticaNeue",
           fontWeight: "bold",
           color: colors.offwhite,
-          fontSize: 22,
-          marginBottom: 5,
+          letterSpacing: 1,
+          fontSize: 24,
+          marginBottom: 7,
         }}
       >
         {isToday(date) ? "Today" : format(date, "eeee")}
-      </Text>
-      <Text
+      </GamingText>
+      <GamingText
         style={{
-          fontFamily: "HelveticaNeue",
-          fontWeight: "bold",
+          fontFamily: "Aux Mono",
+          letterSpacing: -1,
           color: colors.offwhite,
           fontSize: 14,
         }}
       >
         {format(date, "MMMM dd, yyyy")}
-      </Text>
+      </GamingText>
     </View>
   );
 
@@ -109,7 +131,7 @@ const DateSelector = ({}) => {
         width: "100%",
         height: 130,
         marginTop: -60,
-        paddingTop: 50,
+        paddingTop: 46,
       }}
     >
       <TouchableOpacity
@@ -166,7 +188,7 @@ const DateSelector = ({}) => {
         <FontAwesome
           name="chevron-right"
           size={20}
-          color={isToday(selectedDate) ? colors.gray : colors.offwhite}
+          color={isToday(selectedDate) ? colors.lineGray : colors.offwhite}
         />
       </TouchableOpacity>
     </View>

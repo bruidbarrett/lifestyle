@@ -15,6 +15,7 @@ import { useStore } from "../config/store";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import * as Haptics from "expo-haptics";
 import colors from "../config/colors";
+import GamingText from "../components/GamingText";
 
 export const Settings = () => {
   useEffect(() => {
@@ -30,16 +31,15 @@ export const Settings = () => {
         justifyContent: "center",
       }}
     >
-      <Text
+      <GamingText
         style={{
-          fontFamily: "HelveticaNeue",
           fontWeight: "bold",
           color: colors.offwhite,
           fontSize: 20,
         }}
       >
         Settings{" "}
-      </Text>
+      </GamingText>
     </SafeAreaView>
   );
 };

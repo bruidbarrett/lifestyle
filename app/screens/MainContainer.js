@@ -47,7 +47,8 @@ export const MainContainer = () => {
     // }
     // authenticate();
     Font.loadAsync({
-      "Glamour Absolute Extended": require("../assets/fonts/GlamourAbsolute_Extended.otf"),
+      RetroGaming: require("../assets/fonts/RetroGaming.ttf"),
+      AuxMono: require("../assets/fonts/AuxMono.otf"),
     }).then(() => setFontsLoaded(true));
   }, []);
 

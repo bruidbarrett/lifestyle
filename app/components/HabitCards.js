@@ -16,6 +16,7 @@ import {
   format,
   isToday,
 } from "date-fns";
+import GamingText from "./GamingText";
 
 const HabitCards = ({}) => {
   const { userData, setUserData } = useStore();
@@ -85,9 +86,8 @@ const HabitCards = ({}) => {
                 justifyContent: "flex-end",
               }}
             >
-              <Text
+              <GamingText
                 style={{
-                  fontFamily: "HelveticaNeue",
                   fontWeight: "bold",
                   alignSelf: "center",
                   color: colors.offwhite,
@@ -95,7 +95,7 @@ const HabitCards = ({}) => {
                 }}
               >
                 {habit.name}
-              </Text>
+              </GamingText>
             </ImageBackground>
           </TouchableOpacity>
         ))}
