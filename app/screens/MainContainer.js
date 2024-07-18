@@ -88,7 +88,7 @@ export const MainContainer = () => {
           tabBarShowLabel: false,
           tabBarStyle: {
             backgroundColor: colors.background,
-            borderTopWidth: "2px",
+            borderTopWidth: "1.5px",
             height: 80,
             borderTopColor: colors.lineGray,
             elevation: 0,

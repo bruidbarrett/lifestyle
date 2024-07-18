@@ -3,7 +3,7 @@ import { formatISO, parseISO, startOfToday } from "date-fns";
 
 type Habit = {
   name: string;
-  image: string;
+  icon: string;
   completedDates: { [date: string]: boolean };
   lastReset: string;
   dateAdded: string; // Added field to store when the habit was added
@@ -32,36 +32,77 @@ export const useStore = create<Store>((set, get) => ({
     habits: [
       {
         name: "Exercise",
-        image: "/app/assets/icons/workout-lift-gym-weight-weights-dumbell.svg",
+        icon: "/app/assets/icons/workout-lift-gym-weight-weights-dumbell.svg",
         completedDates: {},
         lastReset: "",
         dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
       },
       {
         name: "Stretch",
-        image: "app/assets/icons/stretch-yoga.svg",
+        icon: "app/assets/icons/stretch-yoga.svg",
         completedDates: {},
         lastReset: "",
         dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
       },
       {
         name: "Meditate",
-        image:
-          "app/assets/icons/meditation-meditate-yoga-breath-breathe-zen.svg",
+        icon: "app/assets/icons/meditation-meditate-yoga-breath-breathe-zen.svg",
         completedDates: {},
         lastReset: "",
         dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
       },
       {
         name: "Write",
-        image: "app/assets/icons/paper-write-note-notebook-notes-type.svg",
+        icon: "app/assets/icons/paper-write-note-notebook-notes-type.svg",
         completedDates: {},
         lastReset: "",
         dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
       },
       {
         name: "Draw",
-        image: "app/assets/icons/draw-write-pen-pencil.svg",
+        icon: "app/assets/icons/draw-write-pen-pencil.svg",
+        completedDates: {},
+        lastReset: "",
+        dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
+      },
+      {
+        name: "Read",
+        icon: "app/assets/icons/book-reading-read-library-learn-knowledge.svg",
+        completedDates: {},
+        lastReset: "",
+        dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
+      },
+      {
+        name: "Study",
+        icon: "app/assets/icons/study-learn-education-school-college-university.svg",
+        completedDates: {},
+        lastReset: "",
+        dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
+      },
+      {
+        name: "Work",
+        icon: "app/assets/icons/work-job-business-office-laptop-computer-desk.svg",
+        completedDates: {},
+        lastReset: "",
+        dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
+      },
+      {
+        name: "Clean",
+        icon: "app/assets/icons/clean-cleaning-broom-mop-vacuum-dust-dusting.svg",
+        completedDates: {},
+        lastReset: "",
+        dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
+      },
+      {
+        name: "Cook",
+        icon: "app/assets/icons/cook-cooking-kitchen-food-recipe-meal-prep-chef-hat.svg",
+        completedDates: {},
+        lastReset: "",
+        dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
+      },
+      {
+        name: "Water Plants",
+        icon: "app/assets/icons/plant-flower-garden-nature-green-leaf-leafs.svg",
         completedDates: {},
         lastReset: "",
         dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
@@ -70,14 +111,21 @@ export const useStore = create<Store>((set, get) => ({
     neutralHabits: [
       {
         name: "Check Email",
-        image: "https://example.com/images/email.jpg",
+        icon: "https://example.com/icons/email.jpg",
         completedDates: {},
         lastReset: "",
         dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
       },
       {
         name: "Social Media",
-        image: "https://example.com/images/social_media.jpg",
+        icon: "https://example.com/icons/social_media.jpg",
+        completedDates: {},
+        lastReset: "",
+        dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
+      },
+      {
+        name: "Watch TV",
+        icon: "https://example.com/icons/tv.jpg",
         completedDates: {},
         lastReset: "",
         dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
@@ -86,14 +134,14 @@ export const useStore = create<Store>((set, get) => ({
     antiHabits: [
       {
         name: "Smoking",
-        image: "https://example.com/images/smoking.jpg",
+        icon: "https://example.com/icons/smoking.jpg",
         completedDates: {},
         lastReset: "",
         dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
       },
       {
         name: "Fast Food",
-        image: "https://example.com/images/fast_food.jpg",
+        icon: "https://example.com/icons/fast_food.jpg",
         completedDates: {},
         lastReset: "",
         dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date

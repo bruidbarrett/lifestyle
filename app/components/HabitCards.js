@@ -1,34 +1,27 @@
-// HabitCards.js
-import React from "react";
+import React, { useState, useRef, useCallback } from "react";
 import {
   ScrollView,
   TouchableOpacity,
   ImageBackground,
   Text,
+  View,
 } from "react-native";
-import colors from "../config/colors";
+import Swiper from "react-native-swiper";
 import { useStore } from "../config/store";
-import {
-  formatISO,
-  addDays,
-  subDays,
-  parseISO,
-  format,
-  isToday,
-} from "date-fns";
+import { formatISO } from "date-fns";
 import GamingText from "./GamingText";
+import colors from "../config/colors";
 
-const HabitCards = ({}) => {
-  const { userData, setUserData } = useStore();
-  const { selectedDate, setSelectedDate } = useStore();
+const HabitCards = () => {
+  const { userData, setUserData, selectedDate } = useStore();
+  const [index, setIndex] = useState(0);
+  const swiperRef = useRef(null);
 
-  const formatDate = (date) => {
-    return formatISO(date, { representation: "date" });
-  };
+  const formatDate = (date) => formatISO(date, { representation: "date" });
 
-  const handleCheckOff = (habitName) => {
+  const handleCheckOff = (habitName, type) => {
     const date = formatDate(selectedDate);
-    const updatedHabits = userData.habits.map((habit) => {
+    const updatedHabits = userData[type].map((habit) => {
       if (habit.name === habitName) {
         const wasCompleted = habit.completedDates[date];
         return {
@@ -42,64 +35,125 @@ const HabitCards = ({}) => {
       return habit;
     });
 
-    setUserData({ ...userData, habits: updatedHabits });
+    setUserData({ ...userData, [type]: updatedHabits });
   };
 
-  return (
+  const renderHabits = (habits, type) => (
     <ScrollView
       contentContainerStyle={{
         flexDirection: "row",
         flexWrap: "wrap",
+        overflow: "visible",
+        minHeight: "100%",
         justifyContent: "space-between",
-        padding: 15,
+        paddingHorizontal: 15,
+        paddingTop: 4,
+        paddingBottom: 50,
       }}
     >
-      {userData.habits
-        .filter(
-          (habit) =>
-            parseISO(formatDate(selectedDate)) >=
-            parseISO(formatDate(habit.dateAdded))
-        ) // Filter habits to show only from their added date
-        .map((habit, index) => (
-          <TouchableOpacity
-            key={index}
+      {habits.map((habit, i) => (
+        <TouchableOpacity
+          key={i}
+          style={{
+            width: "47%",
+            height: 130,
+            margin: 5,
+            borderRadius: 10,
+            overflow: "hidden",
+            justifyContent: "flex-end",
+            backgroundColor: habit.completedDates[formatDate(selectedDate)]
+              ? "rgba(0, 255, 0, 0.5)"
+              : "#",
+            padding: 10,
+          }}
+          onPress={() => handleCheckOff(habit.name, type)}
+        >
+          <ImageBackground
+            source={{ uri: habit.icon }}
+            resizeMode="cover"
             style={{
-              width: "47%",
-              height: 130,
-              margin: 5,
-              borderRadius: 10,
-              overflow: "hidden",
+              width: "100%",
+              height: "100%",
               justifyContent: "flex-end",
-              backgroundColor: habit.completedDates[formatDate(selectedDate)]
-                ? "rgba(0, 255, 0, 0.5)"
-                : colors.secondaryGray,
-              padding: 10,
             }}
-            onPress={() => handleCheckOff(habit.name)}
           >
-            <ImageBackground
-              source={{ uri: habit.image }}
-              resizeMode="cover"
+            <GamingText
               style={{
-                width: "100%",
-                height: "100%",
-                justifyContent: "flex-end",
+                fontWeight: "bold",
+                alignSelf: "center",
+                color: "#fff",
+                fontSize: 16,
               }}
             >
-              <GamingText
-                style={{
-                  fontWeight: "bold",
-                  alignSelf: "center",
-                  color: colors.offwhite,
-                  fontSize: 16,
-                }}
-              >
-                {habit.name}
-              </GamingText>
-            </ImageBackground>
+              {habit.name}
+            </GamingText>
+          </ImageBackground>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
+  );
+
+  const handleIndexChanged = useCallback((newIndex) => {
+    setIndex(newIndex);
+  }, []);
+
+  return (
+    <View style={{ flex: 1 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          paddingVertical: 10,
+        }}
+      >
+        {["Habits", "Neutral", "AntiHabits"].map((section, idx) => (
+          <TouchableOpacity
+            key={section}
+            style={{
+              padding: 10,
+              borderBottomWidth: 3,
+              borderBottomColor: index === idx ? "#8CE077" : "transparent",
+            }}
+            onPress={() => {
+              swiperRef.current?.scrollTo(idx);
+            }}
+          >
+            <GamingText
+              style={{
+                color: index === idx ? "#8CE077" : "#888",
+              }}
+            >
+              {section}
+            </GamingText>
           </TouchableOpacity>
         ))}
-    </ScrollView>
+      </View>
+      <Swiper
+        ref={swiperRef}
+        showsButtons={false}
+        loop={false}
+        index={index}
+        onIndexChanged={handleIndexChanged}
+        showsPagination={true}
+        paginationStyle={{ position: "absolute", bottom: 15 }}
+        dotStyle={{
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          width: 8,
+          height: 8,
+          borderRadius: 4,
+        }}
+        activeDotStyle={{
+          backgroundColor: "#fff",
+          width: 8,
+          height: 8,
+          borderRadius: 4,
+        }}
+      >
+        <View>{renderHabits(userData.habits, "habits")}</View>
+        <View>{renderHabits(userData.neutralHabits, "neutralHabits")}</View>
+        <View>{renderHabits(userData.antiHabits, "antiHabits")}</View>
+      </Swiper>
+    </View>
   );
 };
 
