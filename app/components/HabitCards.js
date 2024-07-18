@@ -63,8 +63,12 @@ const HabitCards = () => {
             justifyContent: "flex-end",
             backgroundColor: habit.completedDates[formatDate(selectedDate)]
               ? "rgba(0, 255, 0, 0.5)"
-              : "#",
+              : colors.backgroundColor,
             padding: 10,
+            borderWidth: 2, // Setting border width to 2px
+            borderColor: habit.completedDates[formatDate(selectedDate)]
+              ? "#8CE077"
+              : "#4A4641",
           }}
           onPress={() => handleCheckOff(habit.name, type)}
         >
