@@ -132,6 +132,8 @@ const DateSelector = ({}) => {
         height: 130,
         marginTop: -60,
         paddingTop: 46,
+        borderBottomWidth: "1.5px",
+        borderBottomColor: colors.lineGray,
       }}
     >
       <TouchableOpacity
