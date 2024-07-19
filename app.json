@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "lifestyle",
+    "name": "Lifestyle - Habit Tracker",
     "slug": "lifestyle",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
-    "icon": "./app/assets/icon.png",
+    "icon": "./app/assets/app.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./app/assets/splash.png",
@@ -13,13 +13,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.bruidbarrett.lifestyle"
+      "bundleIdentifier": "com.bruidbarrett.lifestyle-habit"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.bruidbarrett.lifestyle"
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
@@ -30,7 +31,7 @@
       }
     },
     "owner": "bruidbarrett",
-    "runtimeVersion": "1.0.0",
+    "runtimeVersion": "1.1.0",
     "updates": {
       "url": "https://u.expo.dev/ea8bbd00-0888-43bb-97ef-2d4b69646a30"
     }

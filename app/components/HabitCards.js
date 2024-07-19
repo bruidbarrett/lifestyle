@@ -11,6 +11,7 @@ import { useStore } from "../config/store";
 import { formatISO } from "date-fns";
 import GamingText from "./GamingText";
 import colors from "../config/colors";
+import Rive from "rive-react-native";
 
 const HabitCards = () => {
   const { userData, setUserData, selectedDate } = useStore();
@@ -101,6 +102,17 @@ const HabitCards = () => {
     setIndex(newIndex);
   }, []);
 
+  function RiveDemo() {
+    return (
+      <Rive
+        url="https://public.rive.app/community/runtime-files/2195-4346-avatar-pack-use-case.riv"
+        artboardName="Avatar 1"
+        stateMachineName="avatar"
+        style={{ width: 400, height: 400 }}
+      />
+    );
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -110,6 +122,7 @@ const HabitCards = () => {
           paddingVertical: 10,
         }}
       >
+        {/* <RiveDemo />; */}
         {["Habits", "Neutral", "AntiHabits"].map((section, idx) => (
           <TouchableOpacity
             key={section}
