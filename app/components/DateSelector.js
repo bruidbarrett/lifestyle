@@ -100,7 +100,7 @@ const DateSelector = ({}) => {
       <GamingText
         style={{
           fontWeight: "bold",
-          color: colors.offwhite,
+          color: colors.lightCream,
           letterSpacing: 1,
           fontSize: 24,
           marginBottom: 7,
@@ -112,7 +112,7 @@ const DateSelector = ({}) => {
         style={{
           fontFamily: "Aux Mono",
           letterSpacing: -1,
-          color: colors.offwhite,
+          color: colors.lightCream,
           fontSize: 14,
         }}
       >
@@ -148,7 +148,7 @@ const DateSelector = ({}) => {
           paddingVertical: 40,
         }}
       >
-        <FontAwesome name="chevron-left" size={20} color={colors.offwhite} />
+        <FontAwesome name="chevron-left" size={20} color={colors.lightCream} />
       </TouchableOpacity>
       <Animated.View
         style={{
@@ -190,7 +190,7 @@ const DateSelector = ({}) => {
         <FontAwesome
           name="chevron-right"
           size={20}
-          color={isToday(selectedDate) ? colors.lineGray : colors.offwhite}
+          color={isToday(selectedDate) ? colors.lineGray : colors.lightCream}
         />
       </TouchableOpacity>
     </View>

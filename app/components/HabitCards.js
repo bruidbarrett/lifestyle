@@ -1,17 +1,26 @@
 import React, { useState, useRef, useCallback } from "react";
-import {
-  ScrollView,
-  TouchableOpacity,
-  ImageBackground,
-  Text,
-  View,
-} from "react-native";
+import { ScrollView, TouchableOpacity, View } from "react-native";
 import Swiper from "react-native-swiper";
 import { useStore } from "../config/store";
 import { formatISO } from "date-fns";
 import GamingText from "./GamingText";
 import colors from "../config/colors";
-import Rive from "rive-react-native";
+
+// Import SVG components
+import Pencil from "../../app/assets/icons/draw-write-pen-pencil.svg";
+import Meditate from "../../app/assets/icons/meditation-meditate-yoga-breath-breathe-zen.svg";
+import Paper from "../../app/assets/icons/paper-write-note-notebook-notes-type.svg";
+import Yoga from "../../app/assets/icons/stretch-yoga.svg";
+import Dumbbell from "../../app/assets/icons/workout-lift-gym-weight-weights-dumbell.svg";
+
+// Create a mapping between icon names and SVG components
+const iconMap = {
+  Pencil: Pencil,
+  Meditate: Meditate,
+  Paper: Paper,
+  Yoga: Yoga,
+  Dumbbell: Dumbbell,
+};
 
 const HabitCards = () => {
   const { userData, setUserData, selectedDate } = useStore();
@@ -19,6 +28,7 @@ const HabitCards = () => {
   const swiperRef = useRef(null);
 
   const formatDate = (date) => formatISO(date, { representation: "date" });
+  const setShowAddHabitModal = useStore((state) => state.setShowAddHabitModal);
 
   const handleCheckOff = (habitName, type) => {
     const date = formatDate(selectedDate);
@@ -49,69 +59,74 @@ const HabitCards = () => {
         justifyContent: "space-between",
         paddingHorizontal: 15,
         paddingTop: 4,
-        paddingBottom: 50,
+        paddingBottom: 100,
       }}
     >
-      {habits.map((habit, i) => (
-        <TouchableOpacity
-          key={i}
-          style={{
-            width: "47%",
-            height: 130,
-            margin: 5,
-            borderRadius: 10,
-            overflow: "hidden",
-            justifyContent: "flex-end",
-            backgroundColor: habit.completedDates[formatDate(selectedDate)]
-              ? "rgba(0, 255, 0, 0.5)"
-              : colors.backgroundColor,
-            padding: 10,
-            borderWidth: 2, // Setting border width to 2px
-            borderColor: habit.completedDates[formatDate(selectedDate)]
-              ? "#8CE077"
-              : "#4A4641",
-          }}
-          onPress={() => handleCheckOff(habit.name, type)}
-        >
-          <ImageBackground
-            source={{ uri: habit.icon }}
-            resizeMode="cover"
+      {habits.map((habit, i) => {
+        const IconComponent = iconMap[habit.icon] || Pencil; // Default to Pencil if icon not found
+        const isCompleted = habit.completedDates[formatDate(selectedDate)];
+
+        let backgroundColor, borderColor;
+        switch (type) {
+          case "neutralHabits":
+            backgroundColor = isCompleted
+              ? colors.blueBackground
+              : colors.backgroundColor;
+            borderColor = isCompleted ? colors.blueOutline : "#4A4641";
+            break;
+          case "antiHabits":
+            backgroundColor = isCompleted
+              ? colors.redBackground
+              : colors.backgroundColor;
+            borderColor = isCompleted ? colors.redOutline : "#4A4641";
+            break;
+          default: // 'habits'
+            backgroundColor = isCompleted
+              ? colors.greenBackground
+              : colors.backgroundColor;
+            borderColor = isCompleted ? colors.greenOutline : "#4A4641";
+        }
+
+        return (
+          <TouchableOpacity
+            key={i}
             style={{
-              width: "100%",
-              height: "100%",
-              justifyContent: "flex-end",
+              width: "47%",
+              height: 130,
+              margin: 5,
+              borderRadius: 10,
+              overflow: "hidden",
+              justifyContent: "space-between",
+              backgroundColor: backgroundColor,
+              padding: 10,
+              borderWidth: 2,
+              borderColor: borderColor,
             }}
+            onPress={() => handleCheckOff(habit.name, type)}
           >
+            <View style={{ alignItems: "center", marginTop: 10 }}>
+              <IconComponent width={50} height={50} />
+            </View>
             <GamingText
               style={{
                 fontWeight: "bold",
                 alignSelf: "center",
                 color: "#fff",
                 fontSize: 16,
+                marginTop: 10,
               }}
             >
               {habit.name}
             </GamingText>
-          </ImageBackground>
-        </TouchableOpacity>
-      ))}
+          </TouchableOpacity>
+        );
+      })}
     </ScrollView>
   );
 
   const handleIndexChanged = useCallback((newIndex) => {
     setIndex(newIndex);
   }, []);
-
-  function RiveDemo() {
-    return (
-      <Rive
-        url="https://public.rive.app/community/runtime-files/2195-4346-avatar-pack-use-case.riv"
-        artboardName="Avatar 1"
-        stateMachineName="avatar"
-        style={{ width: 400, height: 400 }}
-      />
-    );
-  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -122,29 +137,48 @@ const HabitCards = () => {
           paddingVertical: 10,
         }}
       >
-        {/* <RiveDemo />; */}
-        {["Habits", "Neutral", "AntiHabits"].map((section, idx) => (
-          <TouchableOpacity
-            key={section}
-            style={{
-              padding: 10,
-              borderBottomWidth: 3,
-              borderBottomColor: index === idx ? "#8CE077" : "transparent",
-            }}
-            onPress={() => {
-              swiperRef.current?.scrollTo(idx);
-            }}
-          >
-            <GamingText
+        {["Habits", "Neutral", "AntiHabits"].map((section, idx) => {
+          let activeColor;
+          switch (idx) {
+            case 0: // Habits
+              activeColor = colors.greenOutline;
+              break;
+            case 1: // Neutral
+              activeColor = colors.blueOutline;
+              break;
+            case 2: // AntiHabits
+              activeColor = colors.redOutline;
+              break;
+            default:
+              activeColor = colors.greenOutline;
+          }
+
+          return (
+            <TouchableOpacity
+              key={section}
               style={{
-                color: index === idx ? "#8CE077" : "#888",
+                padding: 10,
+                borderBottomWidth: 3,
+                borderBottomColor: index === idx ? activeColor : "transparent",
+              }}
+              onPress={() => {
+                swiperRef.current?.scrollTo(idx);
               }}
             >
-              {section}
-            </GamingText>
-          </TouchableOpacity>
-        ))}
+              <GamingText
+                style={{
+                  color: index === idx ? activeColor : "#888",
+                  fontSize: 16,
+                  fontWeight: index === idx ? "bold" : "normal",
+                }}
+              >
+                {section}
+              </GamingText>
+            </TouchableOpacity>
+          );
+        })}
       </View>
+
       <Swiper
         ref={swiperRef}
         showsButtons={false}
@@ -170,6 +204,33 @@ const HabitCards = () => {
         <View>{renderHabits(userData.neutralHabits, "neutralHabits")}</View>
         <View>{renderHabits(userData.antiHabits, "antiHabits")}</View>
       </Swiper>
+      <View
+        style={{
+          position: "absolute",
+          bottom: 45,
+          left: 0,
+          right: 5,
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => setShowAddHabitModal(true)}
+          style={{
+            paddingVertical: 5,
+            backgroundColor: colors.background,
+            paddingHorizontal: 10,
+            borderRadius: 100,
+            borderColor: colors.lineGray,
+            borderWidth: 2,
+          }}
+        >
+          <GamingText
+            style={{ color: "#888", fontWeight: "bold", fontSize: 15 }}
+          >
+            ADD +
+          </GamingText>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

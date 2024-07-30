@@ -34,7 +34,7 @@ export const Settings = () => {
       <GamingText
         style={{
           fontWeight: "bold",
-          color: colors.offwhite,
+          color: colors.lightCream,
           fontSize: 20,
         }}
       >

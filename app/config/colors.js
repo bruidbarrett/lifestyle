@@ -6,8 +6,12 @@ export default {
   greenBackground: "#1A4734",
   greenOutline: "#8CE077",
 
-  red: "#E63B3B",
-  redBackground: "#432626",
+  blueBackground: "#195866",
+  blueOutline: "#77CDE0",
 
-  offwhite: "#F7F0E0",
+  redBackground: "#7C3935",
+  redOutline: "#E07D77",
+
+  lightCream: "#F7F0E0",
+  offWhite: "#F8F8F8",
 };

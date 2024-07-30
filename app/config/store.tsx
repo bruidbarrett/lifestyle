@@ -25,84 +25,44 @@ type Store = {
   ) => void;
   selectedDate: Date;
   setSelectedDate: (selectedDate: Date) => void;
+  showAddHabitModal: boolean;
+  setShowAddHabitModal: (showAddHabitModal: boolean) => void;
 };
 
 export const useStore = create<Store>((set, get) => ({
   userData: {
     habits: [
       {
-        name: "Exercise",
-        icon: "/app/assets/icons/workout-lift-gym-weight-weights-dumbell.svg",
+        name: "Meditate",
+        icon: "Meditate",
         completedDates: {},
         lastReset: "",
         dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
       },
       {
         name: "Stretch",
-        icon: "app/assets/icons/stretch-yoga.svg",
-        completedDates: {},
-        lastReset: "",
-        dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
-      },
-      {
-        name: "Meditate",
-        icon: "app/assets/icons/meditation-meditate-yoga-breath-breathe-zen.svg",
-        completedDates: {},
-        lastReset: "",
-        dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
-      },
-      {
-        name: "Write",
-        icon: "app/assets/icons/paper-write-note-notebook-notes-type.svg",
+        icon: "Yoga",
         completedDates: {},
         lastReset: "",
         dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
       },
       {
         name: "Draw",
-        icon: "app/assets/icons/draw-write-pen-pencil.svg",
+        icon: "Pencil",
         completedDates: {},
         lastReset: "",
         dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
       },
       {
-        name: "Read",
-        icon: "app/assets/icons/book-reading-read-library-learn-knowledge.svg",
+        name: "Write",
+        icon: "Paper",
         completedDates: {},
         lastReset: "",
         dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
       },
       {
-        name: "Study",
-        icon: "app/assets/icons/study-learn-education-school-college-university.svg",
-        completedDates: {},
-        lastReset: "",
-        dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
-      },
-      {
-        name: "Work",
-        icon: "app/assets/icons/work-job-business-office-laptop-computer-desk.svg",
-        completedDates: {},
-        lastReset: "",
-        dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
-      },
-      {
-        name: "Clean",
-        icon: "app/assets/icons/clean-cleaning-broom-mop-vacuum-dust-dusting.svg",
-        completedDates: {},
-        lastReset: "",
-        dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
-      },
-      {
-        name: "Cook",
-        icon: "app/assets/icons/cook-cooking-kitchen-food-recipe-meal-prep-chef-hat.svg",
-        completedDates: {},
-        lastReset: "",
-        dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
-      },
-      {
-        name: "Water Plants",
-        icon: "app/assets/icons/plant-flower-garden-nature-green-leaf-leafs.svg",
+        name: "Lift",
+        icon: "Dumbbell",
         completedDates: {},
         lastReset: "",
         dateAdded: formatISO(startOfToday(), { representation: "date" }), // Initialize with today's date
@@ -177,4 +137,6 @@ export const useStore = create<Store>((set, get) => ({
   },
   selectedDate: new Date(),
   setSelectedDate: (selectedDate) => set({ selectedDate }),
+  showAddHabitModal: false,
+  setShowAddHabitModal: (showAddHabitModal) => set({ showAddHabitModal }),
 }));
