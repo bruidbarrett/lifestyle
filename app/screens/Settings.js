@@ -16,7 +16,6 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import * as Haptics from "expo-haptics";
 import colors from "../config/colors";
 import GamingText from "../components/GamingText";
-import MicroComponent from "../components/MicroComponent";
 
 export const Settings = () => {
   useEffect(() => {
@@ -32,7 +31,6 @@ export const Settings = () => {
         justifyContent: "center",
       }}
     >
-      <MicroComponent />
       <GamingText
         style={{
           fontWeight: "bold",
@@ -40,7 +38,7 @@ export const Settings = () => {
           fontSize: 20,
         }}
       >
-        {/* Settings{" "} */}
+        Settings{" "}
       </GamingText>
     </SafeAreaView>
   );

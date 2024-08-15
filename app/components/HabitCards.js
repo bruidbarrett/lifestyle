@@ -216,16 +216,16 @@ const HabitCards = () => {
         <TouchableOpacity
           onPress={() => setShowAddHabitModal(true)}
           style={{
-            paddingVertical: 5,
+            paddingVertical: 8,
             backgroundColor: colors.background,
-            paddingHorizontal: 10,
-            borderRadius: 100,
-            borderColor: colors.lineGray,
+            paddingHorizontal: 15,
+            borderRadius: 200,
+            borderColor: "#555",
             borderWidth: 2,
           }}
         >
           <GamingText
-            style={{ color: "#888", fontWeight: "bold", fontSize: 15 }}
+            style={{ color: "#aaa", fontWeight: "bold", fontSize: 19 }}
           >
             ADD +
           </GamingText>
